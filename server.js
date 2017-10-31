@@ -16,12 +16,23 @@ app.get('/getNote', function (req, res) {
 });
 
 app.post('/updateNote/:note', function (req, res) {
-    stringifyFile = data + req.params.note;
-    fs.writeFile('./test.json', stringifyFile, function (err) {
+    var newData = req.params.note;
+    fs.appendFile('./test.json', newData, function (err) {
         if (err) throw err;
+        res.send('data appended to the file!');
+        console.log('data appended!');
+    });
+
+    /*
+    fs.writeFile('./test.json', stringifyFile, function (err, data) {
+        if (err) throw err;
+        stringifyFile = data + req.params.note;
+        res.send(data + req.params.note);
         console.log('file updated');
     });
-    res.send('file updated');
+    */
+
+
 });
 
 app.listen(3000);
